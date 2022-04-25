@@ -141,6 +141,18 @@ class _MyHomePageState extends State<MyHomePage> {
       onSelectNotification: selectNotification,
     );
 
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      print('message onMessageOpenedApp $message');
+    });
+
+    FirebaseMessaging.instance
+        .getInitialMessage()
+        .then((RemoteMessage? message) {
+      if (message != null) {
+        print('message getInitialMessage $message');
+      }
+    });
+
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
